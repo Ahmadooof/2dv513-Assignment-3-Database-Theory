@@ -1,0 +1,19 @@
+.container{
+    margin: 70px 0px 0px 0px;
+}
+
+.saveButton{
+    float: left;
+    width: 160px;
+    margin: 0px 110px 0px 0px;
+}
+
+
+.form-control{
+    width: 40%;
+}
+
+
+#clear{
+    width: 160px;
+}
