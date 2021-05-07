@@ -1,4 +1,4 @@
-# 2dv513-Assignment-3
+# 2dv513-Assignment-3 (Database Theory)
 small school project (angular with node js)
 
 ## To run the project please do the following:
