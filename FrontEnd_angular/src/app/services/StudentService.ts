@@ -1,73 +1,74 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http"
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Student } from "../student/Student";
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from "rxjs/operators";
 
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  
+  headers: new HttpHeaders({ "Content-Type": "application/json" }),
+};
+
 @Injectable()
 export class StudentService {
-    constructor(private http:HttpClient) {}
-    private url : string = 'http://localhost:3000/student';
-    private innerJoinUrl = 'http://localhost:3000/student-course'
-    private innerJoinAllTablesUrl = 'http://localhost:3000/student-course-grade'
-    private groupByURl = 'http://localhost:3000/count-students'
-    private applyViewURL = 'http://localhost:3000/create_view'
-    private showViewURL = 'http://localhost:3000/show_view'
-    private innerOrdered = 'http://localhost:3000/student-course-ordered'
-    
- //   private url : string = 'https://hello-dot-schooldatabast.appspot.com/api/students';
+  constructor(private http: HttpClient) {}
+  private URI: string = "http://localhost:3000/";
+  private studentsURI: string = this.URI + "student";
+  private innerJoinUrl = this.URI + "student-course";
+  private innerJoinAllTablesUrl = this.URI + "student-course-grade";
+  private groupByURl = this.URI + "count-students";
+  private applyViewURL = this.URI + "create_view";
+  private showViewURL = this.URI + "show_view";
+  private innerOrdered = this.URI + "student-course-ordered";
 
-    public getStudents() : Observable<Student[]> {
-        return this.http.get<Student[]>(this.url);
-    }
+  //   private url : string = 'https://hello-dot-schooldatabast.appspot.com/api/students';
 
-    /**
-     * getStudentInnerJoin
-     */
-    public getStudentInnerJoin() {
-        return this.http.get<Student[]>(this.innerJoinUrl);
-    }
+  public getStudents(): Observable<Student[]> {
+    return this.http.get<Student[]>(this.studentsURI);
+  }
 
-    public getInnerJoinOrdered(){
-        return this.http.get<Student[]>(this.innerOrdered);
-    }
+  /**
+   * getStudentInnerJoin
+   */
+  public getStudentInnerJoin() {
+    return this.http.get<Student[]>(this.innerJoinUrl);
+  }
 
-    public getStudentInnerJoinAllTables(){
-        return this.http.get<Student[]>(this.innerJoinAllTablesUrl);
-    }
+  public getInnerJoinOrdered() {
+    return this.http.get<Student[]>(this.innerOrdered);
+  }
 
-    public applyGroupBy(){
-        return this.http.get<Student[]>(this.groupByURl);
-    }
+  public getStudentInnerJoinAllTables() {
+    return this.http.get<Student[]>(this.innerJoinAllTablesUrl);
+  }
 
-    public applyView(){
-        return this.http.get<Student[]>(this.applyViewURL);
-    }
+  public applyGroupBy() {
+    return this.http.get<Student[]>(this.groupByURl);
+  }
 
-    public showView(){
-        return this.http.get<Student[]>(this.showViewURL);
-    }
+  public applyView() {
+    return this.http.get<Student[]>(this.applyViewURL);
+  }
 
-    public CreateStudent(student : Student): Observable<Student> {
-        return this.http.post<Student>(this.url,student,httpOptions);
-    }
+  public showView() {
+    return this.http.get<Student[]>(this.showViewURL);
+  }
 
-    public getStudentById(id : number): Observable<Student> {
-        const url = `${this.url}/${id}`;
-        return this.http.get<Student>(url);
-    }
+  public CreateStudent(student: Student): Observable<Student> {
+    return this.http.post<Student>(this.studentsURI, student, httpOptions);
+  }
 
-    public UpdateStudent(student :Student,id:number): Observable<Student>{
-        const url = `${this.url}/${id}`;
-        return this.http.put<Student>(url,student,httpOptions);
-    }
+  public getStudentById(id: number): Observable<Student> {
+    const studentsURI = `${this.studentsURI}/${id}`;
+    return this.http.get<Student>(studentsURI);
+  }
 
-    public deleteStudent(student:Student): Observable<Student>{
-        const url = `${this.url}/${student.id}`;
-        return this.http.delete<Student>(url,httpOptions);
-    }
+  public UpdateStudent(student: Student, id: number): Observable<Student> {
+    const studentsURI = `${this.studentsURI}/${id}`;
+    return this.http.put<Student>(studentsURI, student, httpOptions);
+  }
+
+  public deleteStudent(student: Student): Observable<Student> {
+    const studentsURI = `${this.studentsURI}/${student.id}`;
+    return this.http.delete<Student>(studentsURI, httpOptions);
+  }
 }

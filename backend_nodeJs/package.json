@@ -10,10 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "bootstrap": "^4.4.1",
-    "browserify": "^16.5.0",
+    "bootstrap": "^4.6.0",
+    "browserify": "^16.5.2",
     "express": "^4.17.1",
-    "mysql": "^2.17.1",
-    "nodemon": "^2.0.2"
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.7"
   }
 }

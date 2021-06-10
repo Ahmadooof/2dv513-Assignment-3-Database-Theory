@@ -3,34 +3,36 @@
   </div>
 <ng-template #theContent>
   <div class="table">
-    <!-- <button type="button" routerLink="/students/create" class="btn btn-primary">Create a student</button>
-    -->
+    <!-- <button type="button" routerLink="/students/create" class="btn btn-primary">Create a student</button> -->
+   
     <p class="font-weight-bold">
       select all students from student table and the corresponding course for each student from course table (multirelation queries).
+      <button type="button" routerLink="/students" (click)="applyInnerJoin()" class="btn btn-primary">Apply</button>
+
     </p>
-    <button type="button" routerLink="/students" (click)="applyInnerJoin()" class="btn btn-primary">Apply</button>
   <br>
     <p class="font-weight-bold">
       select all students with corresponding course and grade (multirelation queries)
+      <button type="button" routerLink="/students" (click)="applyInnerJoinForAllTables()" class="btn btn-primary">Apply</button>
+
     </p>
-    <button type="button" routerLink="/students" (click)="applyInnerJoinForAllTables()" class="btn btn-primary">Apply</button>
 
     <p class="font-weight-bold">
       select all students ordered by name with corresponding course (SQL JOIN)
+      <button type="button" routerLink="/students" (click)="innerJoinOrdered()" class="btn btn-primary">Apply</button>
     </p>
-    <button type="button" routerLink="/students" (click)="innerJoinOrdered()" class="btn btn-primary">Apply</button>
 
     <p class="font-weight-bold">
       select all courses and count all students in these courses (Grouping)
+      <button type="button" routerLink="/students" (click)="applyGroupBy()" class="btn btn-primary">Apply</button>
     </p>
-    <button type="button" routerLink="/students" (click)="applyGroupBy()" class="btn btn-primary">Apply</button>
+
 
     <p class="font-weight-bold">
       Create view table in DB to show all students who pass the courses(View)
+      <button type="button" routerLink="/students" (click)="applyView()" class="btn btn-primary">Create View</button>
+      <button type="button" routerLink="/students" (click)="showView()" class="btn btn-success">Show View Table</button>
     </p>
-    <button type="button" routerLink="/students" (click)="applyView()" class="btn btn-primary">Create View</button>
-    <button type="button" routerLink="/students" (click)="showView()" class="btn btn-success">Show View Table</button>
-
 
     <table class="table table-bordered">
       <thead>
@@ -42,7 +44,7 @@
           <th scope="col">course Title</th>
           <th scope="col">grade</th>          
           <th scope="col">Number of students</th>          
-          <th scope="col">AdminStuff</th>
+          <th scope="col">Admin Controls</th>
         </tr>
       </thead>
       <tbody>
@@ -57,8 +59,8 @@
           <td>{{ student.NumberOfStudents }}</td>             
           
           <td>
-            <button type="button" class="btn btn-success" routerLink="/students/{{student.id}}">Edit</button>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
+            <!-- <button type="button" class="btn btn-success" routerLink="/students/{{student.id}}">Edit</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button> -->
           </td>
 
           <!-- Modal -->

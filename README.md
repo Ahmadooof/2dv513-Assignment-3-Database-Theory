@@ -11,6 +11,7 @@ small school project (angular with node js)
 #### 2-change username and password in index.js file, regarding to your database configuration.
 #### 3-write this command in CMD to run node js file: node index.js
 ####  4-now the connection should established and check for that by open browswer and navigate to: http://localhost:3000/student
+#### 5- For default configurations of mysql, please do this query IF the connection could not be established
 
 ## For frontEnd:
 #### 1-open Command line to run the frontend by navigating to the this path: "where you download"\2dv513-Assignment-3-master\FrontEnd_angular
