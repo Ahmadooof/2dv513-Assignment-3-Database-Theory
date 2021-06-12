@@ -1,16 +1,10 @@
-var mysql = require('mysql')
+var mysql = require('mysql2')
 const express = require('express');
 var app = express();
 const bodyparser = require('body-parser');
 
 app.use(bodyparser.json());
 
-// var router = express.Router();
-// var path = 'C:/Users/ahmad/Desktop/2dv513/views/';
-
-// router.get("/",function(req,res){
-//   res.sendFile(path + "index.html");
-// });
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -20,13 +14,22 @@ app.use(function (req, res, next) {
 
 var mysqlConnection = mysql.createConnection(
     {
-        host: 'localhost',
-        user: 'root',
-        password: 'root',
-        database: 'school',
-        port: 3306,
-        multipleStatements: true
+        host: 'mysql_server',
+        user: 'asdf',
+        password: 'asdf',
+        database: 'school'
+        // multipleStatements: true
     })
+
+// var mysqlConnection = mysql.createConnection(
+//     {
+//         host: 'localhost',
+//         user: 'root',
+//         password: 'root',
+//         database: 'school',
+//         port: 3306,
+//         // multipleStatements: true
+//     })
 
 mysqlConnection.connect((err) => {
     if (err) {
@@ -39,6 +42,10 @@ mysqlConnection.connect((err) => {
 })
 
 app.listen(3000, () => console.log('Express server is runnig at port no : 3000'));
+
+app.get('/', function (req, res) {
+    res.send('hello world')
+})
 
 app.get('/student', (req, res) => {
     mysqlConnection.query('SELECT * FROM student', (err, rows, fields) => {
