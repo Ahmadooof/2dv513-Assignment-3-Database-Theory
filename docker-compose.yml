@@ -10,8 +10,6 @@ services:
     volumes:
       - ./backend_nodeJs:/app
       - "/app/node_modules"
-    # depends_on:
-    #   - mysql_server
 
   mysql_server:
     image: mysql:latest
@@ -37,11 +35,13 @@ services:
       - "/app/node_modules"
     environment:
       - NODE_ENV=development
-    # depends_on:
-    #   - nodeapi_app
+      
 
       # ------------------- All --------------- #
       #docker-compose -f "docker-compose.yml" up -d --build
 
-      # ----------------- mysql & angular --------- #
+      # ------------------- mysql and angular --------------- #
       # docker-compose -f "docker-compose.yml" up -d --build mysql_server angular_app
+
+      # ------------------- express js --------------- #
+      # docker-compose -f "docker-compose.yml" up -d --build nodeapi_app

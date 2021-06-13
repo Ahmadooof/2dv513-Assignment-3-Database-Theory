@@ -11,14 +11,14 @@ const httpOptions = {
 @Injectable()
 export class StudentService {
   constructor(private http: HttpClient) {}
-  private URI: string = "http://localhost:3000/";
-  private studentsURI: string = this.URI + "student";
-  private innerJoinUrl = this.URI + "student-course";
-  private innerJoinAllTablesUrl = this.URI + "student-course-grade";
-  private groupByURl = this.URI + "count-students";
-  private applyViewURL = this.URI + "create_view";
-  private showViewURL = this.URI + "show_view";
-  private innerOrdered = this.URI + "student-course-ordered";
+  private URI: string = 'http://13.48.148.81';
+  private studentsURI: string = this.URI + "/student";
+  private innerJoinUrl = this.URI + "/student-course";
+  private innerJoinAllTablesUrl = this.URI + "/student-course-grade";
+  private groupByURl = this.URI + "/count-students";
+  private applyViewURL = this.URI + "/create_view";
+  private showViewURL = this.URI + "/show_view";
+  private innerOrdered = this.URI + "/student-course-ordered";
 
   //   private url : string = 'https://hello-dot-schooldatabast.appspot.com/api/students';
 

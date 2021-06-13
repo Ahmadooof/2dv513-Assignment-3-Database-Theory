@@ -11,7 +11,6 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
 var mysqlConnection = mysql.createConnection(
     {
         host: 'mysql_server',
@@ -44,11 +43,14 @@ mysqlConnection.connect((err) => {
 app.listen(3000, () => console.log('Express server is runnig at port no : 3000'));
 
 app.get('/', function (req, res) {
+    console.log('mysql_server');
     res.send('hello world')
 })
 
 app.get('/student', (req, res) => {
     mysqlConnection.query('SELECT * FROM student', (err, rows, fields) => {
+        console.log('mysql_server');
+
         if (!err)
             res.send(rows);
         else {
