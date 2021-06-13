@@ -110,13 +110,13 @@ app.get('/count-students', (req, res) => {
 
 app.get('/create_view', (req, res) => {
     mysqlConnection.query(
-        'CREATE VIEW Students_who_pass AS SELECT name, grade from student inner join grade ON grade.id = grade_id WHERE grade > 50'
+        'CREATE VIEW Students_who_pass AS SELECT name, grade from student inner join grade ON grade.id = grade_id WHERE grade > 49'
         , (err, rows, fields) => {
             if (!err)
                 res.send(rows);
             else {
-                console.log(err);
-                mysqlConnection.destroy()
+                console.log("The tabale is already created"+err);
+                // mysqlConnection.destroy()
             }
         })
 });
@@ -128,7 +128,7 @@ app.get('/show_view', (req, res) => {
             if (!err)
                 res.send(rows);
             else {
-                console.log(err);
+                console.log("The tabale is already created");
                 mysqlConnection.destroy()
             }
         })
