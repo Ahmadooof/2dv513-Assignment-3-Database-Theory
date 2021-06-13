@@ -1,0 +1,44 @@
+version: "3.8"
+
+services: 
+  nodeapi_app:
+    build: 
+      context: ./backend_nodeJs
+      dockerfile: Dockerfile
+    ports: 
+      - 3000:3000
+    volumes: 
+      - ./backend_nodeJs:/app
+      - '/app/node_modules'
+    depends_on: 
+      - mysql_server
+  
+  mysql_server:
+    image: mysql:latest
+    environment: 
+      - MYSQL_DATABASE=school
+      - MYSQL_USER=asdf
+      - MYSQL_PASSWORD=asdf
+      - MYSQL_ROOT_PASSWORD=asdf
+    volumes: 
+      - './:/DB'
+    # command: bash -c "
+    #   mysql use school;
+    #   mysql SOURCE /DB/school_Data.sql;"
+
+  angular_app:
+    build: 
+      context: ./FrontEnd_angular
+      dockerfile: Dockerfile
+    ports: 
+        - 80:80
+    # volumes: 
+    #     - ../FrontEnd_angular:/app
+    #     - '/app/node_modules'
+    # depends_on: 
+    #   - nodeapi_app
+    # environment:
+    #   - NODE_ENV=development
+      
+
+    

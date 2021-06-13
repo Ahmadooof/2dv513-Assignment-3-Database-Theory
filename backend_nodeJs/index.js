@@ -52,7 +52,7 @@ app.get('/student', (req, res) => {
         if (!err)
             res.send(rows);
         else
-            console.log("error");
+            console.log(err);
     })
 });
 
@@ -61,7 +61,7 @@ app.get('/student-course', (req, res) => {
         if (!err)
             res.send(rows);
         else
-            console.log("error");
+            console.log(err);
     })
 });
 
@@ -70,7 +70,7 @@ app.get('/student-course-ordered', (req, res) => {
         if (!err)
             res.send(rows);
         else
-            console.log("error");
+            console.log(err);
     })
 });
 
@@ -81,7 +81,7 @@ app.get('/student-course-grade', (req, res) => {
             if (!err)
                 res.send(rows);
             else
-                console.log("error");
+                console.log(err);
         })
 });
 
@@ -92,7 +92,7 @@ app.get('/count-students', (req, res) => {
             if (!err)
                 res.send(rows);
             else
-                console.log("error");
+                console.log(err);
         })
 });
 
@@ -103,7 +103,7 @@ app.get('/create_view', (req, res) => {
             if (!err)
                 res.send(rows);
             else
-                console.log("error");
+                console.log(err);
         })
 });
 
@@ -114,7 +114,7 @@ app.get('/show_view', (req, res) => {
             if (!err)
                 res.send(rows);
             else
-                console.log("error");
+                console.log(err);
         })
 });
 
