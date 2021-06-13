@@ -34,7 +34,7 @@ var mysqlConnection = mysql.createConnection(
 mysqlConnection.connect((err) => {
     if (err) {
         console.log('Noooooooooooooooooo connection')
-        console.log(err)
+        mysqlConnection.destroy()
     }
     else {
         console.log('db connected')
@@ -51,8 +51,10 @@ app.get('/student', (req, res) => {
     mysqlConnection.query('SELECT * FROM student', (err, rows, fields) => {
         if (!err)
             res.send(rows);
-        else
+        else {
             console.log(err);
+            mysqlConnection.destroy()
+        }
     })
 });
 
@@ -60,8 +62,10 @@ app.get('/student-course', (req, res) => {
     mysqlConnection.query('SELECT * FROM student INNER JOIN course ON course.id = student.course_id', (err, rows, fields) => {
         if (!err)
             res.send(rows);
-        else
+        else {
             console.log(err);
+            mysqlConnection.destroy()
+        }
     })
 });
 
@@ -69,8 +73,10 @@ app.get('/student-course-ordered', (req, res) => {
     mysqlConnection.query('SELECT * FROM student inner JOIN course ON student.course_id = course.id  ORDER BY student.name', (err, rows, fields) => {
         if (!err)
             res.send(rows);
-        else
+        else {
             console.log(err);
+            mysqlConnection.destroy()
+        }
     })
 });
 
@@ -80,8 +86,10 @@ app.get('/student-course-grade', (req, res) => {
         , (err, rows, fields) => {
             if (!err)
                 res.send(rows);
-            else
+            else {
                 console.log(err);
+                mysqlConnection.destroy()
+            }
         })
 });
 
@@ -91,8 +99,10 @@ app.get('/count-students', (req, res) => {
         , (err, rows, fields) => {
             if (!err)
                 res.send(rows);
-            else
+            else {
                 console.log(err);
+                mysqlConnection.destroy()
+            }
         })
 });
 
@@ -102,8 +112,10 @@ app.get('/create_view', (req, res) => {
         , (err, rows, fields) => {
             if (!err)
                 res.send(rows);
-            else
+            else {
                 console.log(err);
+                mysqlConnection.destroy()
+            }
         })
 });
 
@@ -113,8 +125,10 @@ app.get('/show_view', (req, res) => {
         , (err, rows, fields) => {
             if (!err)
                 res.send(rows);
-            else
+            else {
                 console.log(err);
+                mysqlConnection.destroy()
+            }
         })
 });
 
