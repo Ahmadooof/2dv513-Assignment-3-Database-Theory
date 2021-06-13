@@ -19,22 +19,17 @@ WORKDIR /app
 
 COPY ["package.json", "package-lock.json*", "./"]
 
-
-COPY . .
-
-# add the node_modules folder to $PATH
-
-ENV PATH /app/node_modules/.bin:$PATH
-
-
-# install and cache dependencies
+RUN npm i
 
 RUN npm install -g @angular/cli
 
-#build the project for production
+COPY . .
 
-CMD ["ng", "build"]
+RUN ng build
 
+# add the node_modules folder to $PATH
+
+# ENV PATH /app/node_modules/.bin:$PATH
 # set up production environment
 # the base image for this is an alpine based nginx image
 
@@ -49,16 +44,17 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # you need to overwrite the default nginx configurations
 # remove default nginx configuration file
 
-# RUN rm /etc/nginx/conf.d/default.conf
+RUN rm /etc/nginx/conf.d/default.conf
 
 # replace with custom one
 
-# COPY nginx/nginx.conf /etc/nginx/conf.d
+COPY nginx/nginx.conf /etc/nginx/conf.d
 
 # --------- /only for those using react router ----------
 # expose port 80 to the outer world
 
-EXPOSE 80
+EXPOSE 443
+
 
 # start nginx 
 

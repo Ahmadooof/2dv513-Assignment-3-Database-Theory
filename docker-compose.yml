@@ -31,14 +31,14 @@ services:
       context: ./FrontEnd_angular
       dockerfile: Dockerfile
     ports: 
-        - 80:80
-    # volumes: 
-    #     - ../FrontEnd_angular:/app
-    #     - '/app/node_modules'
-    # depends_on: 
-    #   - nodeapi_app
-    # environment:
-    #   - NODE_ENV=development
+        - 4444:4444
+    volumes: 
+        - ./FrontEnd_angular:/app
+        - '/app/node_modules'
+    environment:
+      - NODE_ENV=development
+    depends_on: 
+      - nodeapi_app
       
-
+      
     
