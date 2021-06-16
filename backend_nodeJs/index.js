@@ -5,15 +5,6 @@ const bodyparser = require('body-parser');
 
 app.use(bodyparser.json());
 
-
-
-
-
-
-
-
-
-
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -123,7 +114,7 @@ app.get('/create_view', (req, res) => {
             if (!err)
                 res.send(rows);
             else {
-                console.log("The tabale is already created"+err);
+                console.log("The tabale is already created" + err);
                 // mysqlConnection.destroy()
             }
         })
