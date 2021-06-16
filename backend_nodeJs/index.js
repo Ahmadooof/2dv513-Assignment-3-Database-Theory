@@ -5,12 +5,16 @@ const bodyparser = require('body-parser');
 
 app.use(bodyparser.json());
 
+
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-var mysqlConnection = mysql.createConnection(
+
+// createPool helps with connection errors and opening closing connection for real reqests
+// host mysql_server , here's docker understand that this host related to the host of mysql
+var mysqlConnection = mysql.createPool(
     {
         host: 'mysql_server',
         user: 'asdf',
@@ -19,42 +23,40 @@ var mysqlConnection = mysql.createConnection(
         // multipleStatements: true
     })
 
-// var mysqlConnection = mysql.createConnection(
+// clever cloud good for testing mysql db
+// var mysqlConnection = mysql.createPool(
 //     {
-//         host: 'localhost',
-//         user: 'root',
-//         password: 'root',
-//         database: 'school',
+//         host: 'b4goyse6s0yvx5hgfo4o-mysql.services.clever-cloud.com',
+//         user: 'uj3ykmljlurzpsjh',
+//         password: 'muk1LsbydfVcklfrg4mB',
+//         database: 'b4goyse6s0yvx5hgfo4o',
 //         port: 3306,
-//         // multipleStatements: true
+//         multipleStatements: true
 //     })
 
-mysqlConnection.connect((err) => {
-    if (err) {
-        console.log('Noooooooooooooooooo connection')
-        mysqlConnection.destroy()
-    }
-    else {
-        console.log('db connected')
-    }
-})
+// mysqlConnection.connect((err) => {
+//     if (err) {
+//         console.log('Noooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo connection')
+//         console.log(err)
+//     }
+//     else {
+//         console.log('db connected')
+//     }
+// })
 
 app.listen(3000, () => console.log('Express server is runnig at port no : 3000'));
 
 app.get('/', function (req, res) {
-    console.log('mysql_server');
     res.send('hello world')
 })
 
 app.get('/student', (req, res) => {
     mysqlConnection.query('SELECT * FROM student', (err, rows, fields) => {
-        console.log('mysql_server');
-
         if (!err)
             res.send(rows);
         else {
+            res.send("Error");
             console.log(err);
-            mysqlConnection.destroy()
         }
     })
 });
@@ -64,8 +66,8 @@ app.get('/student-course', (req, res) => {
         if (!err)
             res.send(rows);
         else {
+            res.send("Error");
             console.log(err);
-            mysqlConnection.destroy()
         }
     })
 });
@@ -75,8 +77,8 @@ app.get('/student-course-ordered', (req, res) => {
         if (!err)
             res.send(rows);
         else {
+            res.send("Error");
             console.log(err);
-            mysqlConnection.destroy()
         }
     })
 });
@@ -88,8 +90,7 @@ app.get('/student-course-grade', (req, res) => {
             if (!err)
                 res.send(rows);
             else {
-                console.log(err);
-                mysqlConnection.destroy()
+                res.send("Error");
             }
         })
 });
@@ -101,34 +102,35 @@ app.get('/count-students', (req, res) => {
             if (!err)
                 res.send(rows);
             else {
+                res.send("Error");
                 console.log(err);
-                mysqlConnection.destroy()
             }
         })
 });
 
-app.get('/create_view', (req, res) => {
-    mysqlConnection.query(
-        'CREATE VIEW Students_who_pass AS SELECT name, grade from student inner join grade ON grade.id = grade_id WHERE grade > 49'
-        , (err, rows, fields) => {
-            if (!err)
-                res.send(rows);
-            else {
-                console.log("The tabale is already created" + err);
-                // mysqlConnection.destroy()
-            }
-        })
-});
+// app.get('/create_view', (req, res) => {
+//     mysqlConnection.query(
+//         'CREATE VIEW Students_who_pass AS SELECT name, grade from student inner join grade ON grade.id = grade_id WHERE grade > 49'
+//         , (err, rows, fields) => {
+//             if (!err)
+//                 res.send(rows);
+//             else {
+//                 res.send("T");
+//                 console.log(err)
+//             }
+//         })
+// });
 
 app.get('/show_view', (req, res) => {
+
     mysqlConnection.query(
         'select * from Students_who_pass'
         , (err, rows, fields) => {
             if (!err)
                 res.send(rows);
             else {
-                console.log("The tabale is already created");
-                mysqlConnection.destroy()
+                res.send("Error");
+                console.log(err)
             }
         })
 });

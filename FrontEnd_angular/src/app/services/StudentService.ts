@@ -11,7 +11,7 @@ const httpOptions = {
 @Injectable()
 export class StudentService {
   constructor(private http: HttpClient) {}
-  private URI: string = 'http://13.51.204.247:3000';
+  private URI: string = "http://13.51.204.247:3000";
   private studentsURI: string = this.URI + "/student";
   private innerJoinUrl = this.URI + "/student-course";
   private innerJoinAllTablesUrl = this.URI + "/student-course-grade";
