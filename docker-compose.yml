@@ -24,17 +24,17 @@ services:
     #   mysql use school;
     #   mysql SOURCE /DB/school_Data.sql;"
 
-  angular_app:
-    build:
-      context: ./FrontEnd_angular
-      dockerfile: Dockerfile
-    ports:
-      - 4444:4444
-    volumes:
-      - ./FrontEnd_angular:/app
-      - "/app/node_modules"
-    environment:
-      - NODE_ENV=development
+  # angular_app:
+  #   build:
+  #     context: ./FrontEnd_angular
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 4444:4444
+  #   volumes:
+  #     - ./FrontEnd_angular:/app
+  #     - "/app/node_modules"
+  #   environment:
+  #     - NODE_ENV=development
       
 
       # ------------------- All --------------- #
