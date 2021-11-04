@@ -3,8 +3,16 @@ const express = require('express');
 var app = express();
 const bodyparser = require('body-parser');
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 app.use(bodyparser.json());
 
+// let port = process.env.PORT
+let mySQLHost = process.env.HOST
+let username = process.env.USERNAME;
+let password = process.env.PASSWORD;
+let database = process.env.DATABASE;
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -14,40 +22,21 @@ app.use(function (req, res, next) {
 
 // createPool helps with connection errors and opening closing connection for real reqests
 // host mysql_server , here's docker understand that this host related to the host of mysql
+
+app.listen((4000),() => console.log(`mysql_host: ${mySQLHost}`));        // () this means running on localhost, in k8s will work on the cluster ip of this port, thats why dockerfile expose 4000
+
 var mysqlConnection = mysql.createPool(
     {
-        host: 'mysql_server',
-        user: 'asdf',
-        password: 'asdf',
-        database: 'school'
+        host: mySQLHost,                // in k8s we refer to the configmap and configmap will refer to mysql service which will refer to MYSQL... no need to specify the port!
+        // port: port,                  // it is by default 3306, which mysql uses
+        user: username,
+        password: password,
+        database: database
         // multipleStatements: true
     })
 
-// clever cloud good for testing mysql db
-// var mysqlConnection = mysql.createPool(
-//     {
-//         host: 'b4goyse6s0yvx5hgfo4o-mysql.services.clever-cloud.com',
-//         user: 'uj3ykmljlurzpsjh',
-//         password: 'muk1LsbydfVcklfrg4mB',
-//         database: 'b4goyse6s0yvx5hgfo4o',
-//         port: 3306,
-//         multipleStatements: true
-//     })
-
-// mysqlConnection.connect((err) => {
-//     if (err) {
-//         console.log('Noooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo connection')
-//         console.log(err)
-//     }
-//     else {
-//         console.log('db connected')
-//     }
-// })
-
-app.listen(3000, () => console.log('Express server is runnig at port no : 3000'));
-
 app.get('/', function (req, res) {
-    res.send('hello world')
+    res.send('hello world');
 })
 
 app.get('/student', (req, res) => {

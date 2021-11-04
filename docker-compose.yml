@@ -11,30 +11,35 @@ services:
       - ./backend_nodeJs:/app
       - "/app/node_modules"
 
-  mysql_server:
-    image: mysql:latest
-    environment:
-      - MYSQL_DATABASE=school
-      - MYSQL_USER=asdf
-      - MYSQL_PASSWORD=asdf
-      - MYSQL_ROOT_PASSWORD=asdf
+  # mysql_server:
+  #   image: mysql:latest
+  #   container_name: ge
+  #   volumes:
+  #     #- container-volume:/var/lib/mysql
+  #     - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: school
+  #   ports:
+  #     - "3306:3306"
+
+  angular_app:
+    build:
+      context: ./FrontEnd_angular
+      dockerfile: Dockerfile
+    ports:
+      - 4444:4444
     volumes:
-      - "./:/DB"
+      - ./FrontEnd_angular:/app
+      - "/app/node_modules"
+    environment:
+      - NODE_ENV=development
+    
     # command: bash -c "
     #   mysql use school;
     #   mysql SOURCE /DB/school_Data.sql;"
 
-  # angular_app:
-  #   build:
-  #     context: ./FrontEnd_angular
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 4444:4444
-  #   volumes:
-  #     - ./FrontEnd_angular:/app
-  #     - "/app/node_modules"
-  #   environment:
-  #     - NODE_ENV=development
+
       
 
       # ------------------- All --------------- #
@@ -45,3 +50,15 @@ services:
 
       # ------------------- express js --------------- #
       # docker-compose -f "docker-compose.yml" up -d --build nodeapi_app
+
+
+      #docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+
+      
+      #docker exec -i some-mysql sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD"' < /some/path/on/your/host/all-databases.sql
+      #docker exec -i school_mysql sh -c 'exec mysql -uroot -p"password"' /school_Data.sql
+
+      #docker push 
+      # docker exec -it 'test' sh -c 'exec mysql -uroot -p"password"'
+      #docker run --name some-mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+      

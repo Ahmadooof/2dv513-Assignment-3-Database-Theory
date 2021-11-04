@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:alpine
 
 #One of the simplest things you can do to improve performance is to set NODE_ENV to production.
 ENV NODE_ENV=production
@@ -12,8 +12,6 @@ RUN npm install --production
 
 COPY . .
 
-EXPOSE 3000
-
-VOLUME [ "/app/node_modules" ]
+EXPOSE 4000
 
 CMD ["node", "index.js"]
