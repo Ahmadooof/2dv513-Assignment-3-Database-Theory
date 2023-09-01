@@ -1,0 +1,34 @@
+<div class="edit" *ngIf="student">
+  <h3>Update {{ student?.name | uppercase }} details</h3>
+  <div>
+    <label>name:
+      <input placeholder="Name" [(ngModel)]="student.name" name="name"/>
+    </label>
+  </div>
+
+  <div>
+    <label>phone number:
+      <input placeholder="Phone number" [(ngModel)]="student.phoneNumber" name="phoneNumber"/>
+    </label>
+  </div>
+
+  <div>
+    <label>age:
+      <input placeholder="Age" [(ngModel)]="student.age" name="age"/>
+    </label>
+  </div>
+  
+  <!-- <div>
+    <label>city:
+      <input placeholder="City" [(ngModel)]="student.city" name="city"/>
+    </label>
+  </div>
+
+  <div>
+    <label>PostNumber:
+      <input type="number" placeholder="PostNumber" [(ngModel)]="student.postNumber" name="postNumber"/>
+    </label>
+  </div> -->
+
+  <button (click)="updateStudent(student)" routerLink="/students">Update</button>
+</div>

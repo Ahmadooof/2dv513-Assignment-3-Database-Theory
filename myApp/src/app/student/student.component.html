@@ -1,0 +1,99 @@
+<div class="container">
+  <div *ngIf="visible; else theContent" class="loader">
+  </div>
+  <ng-template #theContent>
+    <div class="table">
+      <!-- <button type="button" routerLink="/students/create" class="btn btn-primary">Create a student</button> -->
+
+      <p class="font-weight-bold">
+        select all students from student table and the corresponding course for each student from course table
+        (multirelation queries).
+        <button type="button" routerLink="/students" (click)="applyInnerJoin()" class="btn btn-primary">Apply</button>
+
+      </p>
+      <br>
+      <p class="font-weight-bold">
+        select all students with corresponding course and grade (multirelation queries)
+        <button type="button" routerLink="/students" (click)="applyInnerJoinForAllTables()"
+          class="btn btn-primary">Apply</button>
+
+      </p>
+
+      <p class="font-weight-bold">
+        select all students ordered by name with corresponding course (SQL JOIN)
+        <button type="button" routerLink="/students" (click)="innerJoinOrdered()" class="btn btn-primary">Apply</button>
+      </p>
+
+      <p class="font-weight-bold">
+        select all courses and count all students in these courses (Grouping)
+        <button type="button" routerLink="/students" (click)="applyGroupBy()" class="btn btn-primary">Apply</button>
+      </p>
+
+
+      <p class="font-weight-bold">
+        Create view table in DB to show all students who pass the courses(View)
+        <button type="button" routerLink="/students" (click)="applyView()" class="btn btn-primary">Create View</button>
+        <button type="button" routerLink="/students" (click)="showView()" class="btn btn-success">Show View
+          Table</button>
+      </p>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">NAME</th>
+            <th scope="col">phoneNumber</th>
+            <th scope="col">age</th>
+            <th scope="col">course Title</th>
+            <th scope="col">grade</th>
+            <th scope="col">Number of students</th>
+            <th scope="col">Admin Controls</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let student of students">
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.phoneNumber }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.title }}</td>
+            <td>{{ student.grade }}</td>
+            <td>{{ student.NumberOfStudents }}</td>
+
+            <td>
+              <button type="button" class="btn btn-success" routerLink="/students/{{student.id}}" *ngIf="student.id">Edit</button>
+              <button type="button" class="btn btn-danger" data-toggle="modal" [attr.data-target]="'#deleteModal' + student.id" *ngIf="student.id">Delete</button>
+      
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <!-- Confirmation modal for each student -->
+      <div *ngFor="let student of students">
+        <div class="modal fade" id="deleteModal{{ student.id }}" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+                <button type="button" #closeModal class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete {{ student.name }}?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="onDeleteStudent(student)">Delete
+                  Now</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
