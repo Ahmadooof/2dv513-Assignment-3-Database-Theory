@@ -1,25 +1,27 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { Student } from "../student/Student";
-import { catchError, map, tap } from "rxjs/operators";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Student } from '../student/Student';
+import { catchError, map, tap } from 'rxjs/operators';
+import { ConfigService } from '../config.service';
 
 const httpOptions = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" }),
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
 @Injectable()
 export class StudentService {
-  constructor(private http: HttpClient) {}
-  private URI: string = "http://localhost:4000"; // http://localhost:4000
-  private studentsURI: string = this.URI + "/student";
-  private studentsURIDelet: string = this.URI + "/student";
-  private innerJoinUrl = this.URI + "/student-course";
-  private innerJoinAllTablesUrl = this.URI + "/student-course-grade";
-  private groupByURl = this.URI + "/count-students";
-  private applyViewURL = this.URI + "/create_view";
-  private showViewURL = this.URI + "/show_view";
-  private innerOrdered = this.URI + "/student-course-ordered";
+  constructor(private http: HttpClient, private ConfigService: ConfigService) {}
+  
+  private URI: string = `${this.ConfigService.getBaseUrl()}`; 
+  private studentsURI: string = this.URI + '/student';
+  private studentsURIDelet: string = this.URI + '/student';
+  private innerJoinUrl = this.URI + '/student-course';
+  private innerJoinAllTablesUrl = this.URI + '/student-course-grade';
+  private groupByURl = this.URI + '/count-students';
+  private applyViewURL = this.URI + '/create_view';
+  private showViewURL = this.URI + '/show_view';
+  private innerOrdered = this.URI + '/student-course-ordered';
 
   //   private url : string = 'https://hello-dot-schooldatabast.appspot.com/api/students';
 

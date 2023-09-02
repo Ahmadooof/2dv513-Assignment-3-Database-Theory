@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { ConfigService } from '../config.service';
+
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
-  styleUrls: ['./navigation-bar.component.css']
+  styleUrls: ['./navigation-bar.component.css'],
 })
 export class NavigationBarComponent implements OnInit {
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  constructor(private http: HttpClient) {}
-  private URI: string = "http://localhost:4000"; // http://localhost:4000
+  constructor(private http: HttpClient, private ConfigService: ConfigService) {}
+  private URI: string = `${this.ConfigService.getBaseUrl()}`;
 
   executeSqlFile(): void {
     // Make a POST request to the Express.js API endpoint
@@ -28,8 +29,5 @@ export class NavigationBarComponent implements OnInit {
     );
   }
 
- public searchForStudent() : void{
-    
- }
-
+  public searchForStudent(): void {}
 }
